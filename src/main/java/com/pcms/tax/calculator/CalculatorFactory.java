@@ -32,7 +32,7 @@ public class CalculatorFactory {
     private static TieredIncomeTaxCalculator initTieredCalculator() {
         TieredIncomeTaxCalculator calculator;
 
-        calculator = new TieredIncomeTaxCalculator();
+        calculator = TieredIncomeTaxCalculator.getInstance();
         calculator.initialize();
 
         return calculator;

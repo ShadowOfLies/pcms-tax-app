@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
  * @author Gavin Boshoff
  */
 @Repository
-public interface ConfigurationRepository extends CrudRepository<TierConfiguration, Void> {
+public interface ConfigurationRepository extends CrudRepository<TierConfiguration, String> {
 
     @Override
     public List<TierConfiguration> findAll();

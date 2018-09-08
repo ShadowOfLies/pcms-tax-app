@@ -24,12 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @version 4
+ * @version 1
  * @author Gavin Boshoff
  */
 @CrossOrigin(
-        allowedHeaders = {"content-type"},
-        origins = {"*"}, // TODO: GBO -  Restrict origins
+        origins = {"*"},
         methods = {RequestMethod.GET})
 @RestController
 @RequestMapping(path = "/api/{country}/income-tax",
@@ -41,7 +40,7 @@ public class IncomeTaxController {
     private IIncomeTaxService incomeTaxService;
 
     @GetMapping("/{period}")
-    public TaxBreakdown calculatePerAnnum(
+    public TaxBreakdown calculateTaxBreakdown(
             @PathVariable("country") Country country,
             @PathVariable("period") Period period,
             @RequestParam("income") BigDecimal incomeAmount) {

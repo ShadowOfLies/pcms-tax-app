@@ -7,39 +7,39 @@
  */
 package com.pcms.tax.repo.data;
 
-import com.pcms.tax.data.Country;
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @version 1
  * @author Gavin Boshoff
  */
 @Entity
-public class TierConfiguration {
+@Table(name = "tier_configuration")
+public class TierConfiguration implements Serializable {
 
-    private Country country;
-    private int bandLowerBound;
+    private static final long serialVersionUID = -4176572555629121769L;
+
+    @EmbeddedId
+    private TierConfigId id;
+    @Column(name = "band_upper_bound")
     private Integer bandUpperBound;
-    private int bandPercenta;
+    @Column(name = "band_percentage")
+    private int bandPercentage;
 
     public TierConfiguration() {
     }
 
-    public Country getCountry() {
-        return country;
+    public TierConfigId getId() {
+        return id;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public int getBandLowerBound() {
-        return bandLowerBound;
-    }
-
-    public void setBandLowerBound(int bandLowerBound) {
-        this.bandLowerBound = bandLowerBound;
+    public void setId(TierConfigId id) {
+        this.id = id;
     }
 
     public Integer getBandUpperBound() {
@@ -50,21 +50,20 @@ public class TierConfiguration {
         this.bandUpperBound = bandUpperBound;
     }
 
-    public int getBandPercenta() {
-        return bandPercenta;
+    public int getBandPercentage() {
+        return bandPercentage;
     }
 
-    public void setBandPercenta(int bandPercenta) {
-        this.bandPercenta = bandPercenta;
+    public void setBandPercentage(int bandPercentage) {
+        this.bandPercentage = bandPercentage;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.country);
-        hash = 71 * hash + this.bandLowerBound;
+        hash = 71 * hash + Objects.hashCode(this.id);
         hash = 71 * hash + Objects.hashCode(this.bandUpperBound);
-        hash = 71 * hash + this.bandPercenta;
+        hash = 71 * hash + this.bandPercentage;
         return hash;
     }
 
@@ -81,13 +80,10 @@ public class TierConfiguration {
         }
 
         final TierConfiguration other = (TierConfiguration) obj;
-        if (this.bandLowerBound != other.bandLowerBound) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (this.bandPercenta != other.bandPercenta) {
-            return false;
-        }
-        if (this.country != other.country) {
+        if (this.bandPercentage != other.bandPercentage) {
             return false;
         }
         return Objects.equals(this.bandUpperBound, other.bandUpperBound);
@@ -98,10 +94,9 @@ public class TierConfiguration {
         StringBuilder toStringBuilder;
 
         toStringBuilder = new StringBuilder("TierConfiguration{");
-        toStringBuilder.append("country=").append(this.country);
-        toStringBuilder.append(",bandLowerBound=").append(this.bandLowerBound);
+        toStringBuilder.append("id=").append(this.id);
         toStringBuilder.append(",bandUpperBound=").append(this.bandUpperBound);
-        toStringBuilder.append(",bandPercenta=").append(this.bandPercenta);
+        toStringBuilder.append(",bandPercentage=").append(this.bandPercentage);
         toStringBuilder.append('}');
 
         return toStringBuilder.toString();

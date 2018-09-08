@@ -8,12 +8,16 @@
 package com.pcms.tax.app;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * @version 1
  * @author Gavin Boshoff
  */
 @SpringBootApplication(scanBasePackages = {"com.pcms"})
+@EnableJpaRepositories("com.pcms")
+@EntityScan("com.pcms")
 public class PcmsTaxApplicationRunner {
 
 }

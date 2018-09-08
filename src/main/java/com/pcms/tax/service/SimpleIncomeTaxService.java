@@ -7,12 +7,14 @@
  */
 package com.pcms.tax.service;
 
+import com.pcms.tax.calculator.CalculatorFactory;
+import com.pcms.tax.calculator.IncomeTaxCalculator;
 import com.pcms.tax.data.Income;
 import com.pcms.tax.data.TaxBreakdown;
 import org.springframework.stereotype.Service;
 
 /**
- * @version 4
+ * @version 1
  * @author Gavin Boshoff
  */
 @Service
@@ -22,7 +24,17 @@ public class SimpleIncomeTaxService implements IIncomeTaxService {
 
     @Override
     public TaxBreakdown calculate(Income income) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        IncomeTaxCalculator incomeTaxCalculator;
 
+        incomeTaxCalculator = CalculatorFactory.getIncomeTaxCalculator(income.getCountry());
+
+        switch (income.getPeriod()) {
+            case ANNUALLY:
+                return incomeTaxCalculator.calculateByAnnualIncome(income.getCountry(), income.getIncomeAmount());
+            case MONTHLY:
+                return incomeTaxCalculator.calculateByMonthlyIncome(income.getCountry(), income.getIncomeAmount());
+            default:
+                throw new IllegalArgumentException("Period not supported");
+        }
+    }
 }
